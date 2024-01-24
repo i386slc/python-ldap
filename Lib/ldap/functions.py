@@ -30,12 +30,12 @@ if __debug__:
 
 def _ldap_function_call(lock,func,*args,**kwargs):
   """
-  Wrapper function which locks and logs calls to function
+  Функция-обертка, которая блокирует и регистрирует вызовы функции.
 
   lock
-      Instance of threading.Lock or compatible
+      Экземпляр threading.Lock или совместимый
   func
-      Function to call with arguments passed in via *args and **kwargs
+      Функция для вызова с переданными аргументами через *args и **kwargs
   """
   if lock:
     lock.acquire()
@@ -67,26 +67,26 @@ def initialize(
     bytes_mode=None, fileno=None, **kwargs
 ):
   """
-  Return LDAPObject instance by opening LDAP connection to
-  LDAP host specified by LDAP URL
+  Возвращает экземпляр LDAPObject, открыв соединение LDAP с хостом LDAP,
+  указанным URL-адресом LDAP.
 
-  Parameters:
+  Параметры:
   uri
-        LDAP URL containing at least connection scheme and hostport,
-        e.g. ldap://localhost:389
+        URL-адрес LDAP, содержащий как минимум схему подключения и порт хоста,
+        например, ldap://localhost:389
   trace_level
-        If non-zero a trace output of LDAP calls is generated.
+        Если значение не равно 0, генерируется вывод трассировки вызовов LDAP.
   trace_file
-        File object where to write the trace output to.
-        Default is to use stdout.
+        Объект файла, в который записываются выходные данные трассировки.
+        По умолчанию используется stdout.
   bytes_mode
-        Whether to enable :ref:`bytes_mode` for backwards compatibility under Py2.
+        Следует ли включать :ref:`bytes_mode` для обратной совместимости под Py2.
   fileno
-        If not None the socket file descriptor is used to connect to an
-        LDAP server.
+        Если значение не None, дескриптор файла сокета используется
+        для подключения к серверу LDAP.
 
-  Additional keyword arguments (such as ``bytes_strictness``) are
-  passed to ``LDAPObject``.
+  Дополнительные ключевые аргументы (такие как ``bytes_strictness``)
+  передаются в ``LDAPObject``.
   """
   return LDAPObject(
       uri, trace_level, trace_file, trace_stack_limit, bytes_mode,
@@ -107,7 +107,7 @@ def set_option(option,invalue):
   """
   set_option(name, value)
 
-  Set the value of an LDAP global option.
+  Установите значение глобальной опции LDAP.
   """
   return _ldap_function_call(None,_ldap.set_option,option,invalue)
 

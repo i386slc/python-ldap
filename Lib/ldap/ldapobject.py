@@ -49,9 +49,9 @@ class NO_UNIQUE_ENTRY(ldap.NO_SUCH_OBJECT):
 
 class SimpleLDAPObject:
   """
-  This basic class wraps all methods of the underlying C API object.
+  Этот базовый класс содержит все методы базового объекта C API.
 
-  The arguments are same as for the :func:`~ldap.initialize()` function.
+  Аргументы те же, что и для функции :func:`~ldap.initialize()`.
   """
 
   CLASSATTR_OPTION_MAPPING = {
@@ -572,42 +572,42 @@ class SimpleLDAPObject:
     search_ext(base,scope,[,filterstr='(objectClass=*)' [,attrlist=None [,attrsonly=0 [,serverctrls=None [,clientctrls=None [,timeout=-1 [,sizelimit=0]]]]]]])
     search_ext_s(base,scope,[,filterstr='(objectClass=*)' [,attrlist=None [,attrsonly=0 [,serverctrls=None [,clientctrls=None [,timeout=-1 [,sizelimit=0]]]]]]])
 
-        Perform an LDAP search operation, with base as the DN of
-        the entry at which to start the search, scope being one of
-        SCOPE_BASE (to search the object itself), SCOPE_ONELEVEL
-        (to search the object's immediate children), or SCOPE_SUBTREE
-        (to search the object and all its descendants).
+        Выполняет операцию поиска LDAP, используя base в качестве DN записи,
+        с которой следует начать поиск, а область действия может быть
+        одной из SCOPE_BASE (для поиска самого объекта),
+        SCOPE_ONELEVEL (для поиска непосредственных дочерних объектов объекта)
+        или SCOPE_SUBTREE (для поиска объекта и всех его потомков).
 
-        filter is a string representation of the filter to
-        apply in the search (see RFC 4515).
+        filter — это строковое представление фильтра,
+        применяемого при поиске (см. RFC 4515).
 
-        Each result tuple is of the form (dn,entry), where dn is a
-        string containing the DN (distinguished name) of the entry, and
-        entry is a dictionary containing the attributes.
-        Attributes types are used as string dictionary keys and attribute
-        values are stored in a list as dictionary value.
+        Каждый кортеж результатов имеет форму (dn, entry),
+        где dn — это строка, содержащая DN (отличительное имя) записи,
+        а entry — это словарь, содержащий атрибуты.
+        Типы атрибутов используются как ключи строкового словаря,
+        а значения атрибутов сохраняются в списке как значения словаря.
 
-        The DN in dn is extracted using the underlying ldap_get_dn(),
-        which may raise an exception of the DN is malformed.
+        DN в dn извлекается с помощью базовой функции ldap_get_dn(),
+        которая может вызвать исключение о том, что DN имеет неверный формат.
 
-        If attrsonly is non-zero, the values of attrs will be
-        meaningless (they are not transmitted in the result).
+        Если attrsonly не равно нулю, значения attrs будут бессмысленными
+        (они не передаются в результате).
 
-        The retrieved attributes can be limited with the attrlist
-        parameter.  If attrlist is None, all the attributes of each
-        entry are returned.
+        Полученные атрибуты можно ограничить с помощью параметра attrlist.
+        Если attrlist имеет значение None, возвращаются все атрибуты каждой записи.
 
         serverctrls=None
 
         clientctrls=None
 
-        The synchronous form with timeout, search_st() or search_ext_s(),
-        will block for at most timeout seconds (or indefinitely if
-        timeout is negative). A TIMEOUT exception is raised if no result is
-        received within the time.
+        Синхронная форма с timeout, search_st() или search_ext_s(),
+        будет блокироваться не более чем на секунды таймаута
+        (или на неопределенный срок, если таймаут отрицательный).
+        Исключение TIMEOUT возникает, если в течение заданного времени
+        не получен результат.
 
-        The amount of search results retrieved can be limited with the
-        sizelimit parameter if non-zero.
+        Количество получаемых результатов поиска можно ограничить
+        с помощью параметра sizelimit, если оно не равно нулю.
     """
     if filterstr is None:
       filterstr = '(objectClass=*)'
@@ -1036,6 +1036,6 @@ class ReconnectLDAPObject(SimpleLDAPObject):
     return self._apply_method_s(SimpleLDAPObject.whoami_s,*args,**kwargs)
 
 
-# The class called LDAPObject will be used as default for
+# Класс LDAPObject будет использоваться по умолчанию для
 # ldap.open() and ldap.initialize()
 LDAPObject = SimpleLDAPObject
